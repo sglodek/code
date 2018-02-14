@@ -31,7 +31,7 @@ def gen_user_report(users, groups, output_file='user_report.txt'):
             if users[i][0] in groups[b][3]:
                 supp_groups.append(groups[b][0])
         users[i].append(supp_groups)
-    with open(output_file, 'a') as output:
+    with open(output_file, 'w') as output:
         for i in range(0, len(users) - 1):
             if int(users[i][2]) >= 1000:
                 account = """
