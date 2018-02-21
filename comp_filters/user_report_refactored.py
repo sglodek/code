@@ -18,11 +18,20 @@ def get_user_accounts(passwd_file='/etc/passwd'):
         user_list.pop()
         user_list = list(split_group_line(line) for line in user_list)
         user_list = list(filter(is_user_account, user_list))
-        return user_list
+        new_dict = {}
+        for user in user_list:
+            new_dict[user[0]] = user
+        return new_dict
 
 
-def get_sup_groups(users, groups):
-    users = list(filter(lamba x: x ), users)
+def get_sup_groups_test(users, groups):
+    group_dict = {}
+    for group in groups:
+        for user in group[3].split(","):
+            if user in users:
+                group_dict.setdefault(user, [])
+                group_dict[user].append(group[0])
+    return group_dict
 
 def get_sup_groups(users, groups):
         for user in users:
@@ -51,8 +60,9 @@ def gen_user_report(users, output_file='user_report.txt'):
 def main():
     groups = parse_groups()
     users = get_user_accounts()
-    sup_groups = get_sup_groups(users, groups)
-    gen_user_report(sup_groups)
+    #sup_groups = get_sup_groups(users, groups)
+    sup_groups = get_sup_groups_test(users, groups)
+    gen_user_report(sup_groups, users)
 
 if __name__ == "__main__":
     main()
