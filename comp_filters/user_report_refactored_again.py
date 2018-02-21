@@ -16,12 +16,14 @@ def parse_users(passwd_file='/etc/passwd'):
 
 def get_sup_groups(users, groups):
         for user in users:
-            supp_groups = []
-            for group in groups:
-                if user[0] in group[3]:
-                    supp_groups.append(group[0])
-            user.append(supp_groups)
-        return users
+            supp_groups = list(map(lambda x: x[0], filter(lambda x: user[0] in x[3], groups)))
+            print(supp_groups)
+
+           # for group in groups:
+            #    if user[0] in group[3]:
+             #       supp_groups.append(group[0])
+           # user.append(supp_groups)
+       # return users
 
 def gen_user_report(users, output_file='user_report.txt'):
     with open(output_file, 'w') as output:
@@ -42,7 +44,7 @@ def main():
     groups = parse_groups()
     users = parse_users()
     sup_groups = get_sup_groups(users, groups)
-    gen_user_report(sup_groups)
+    #gen_user_report(sup_groups)
 
 if __name__ == "__main__":
     main()
