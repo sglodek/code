@@ -23,7 +23,6 @@ def parse_groups(file_path='/etc/group'):
             groups.append(group.split(":"))
         return groups
 
-
 def gen_user_report(users, groups, output_file='user_report.txt'):
     for i in range(0, len(users)-1):
         supp_groups = []

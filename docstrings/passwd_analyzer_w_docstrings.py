@@ -1,18 +1,18 @@
-def split_group_line(line):
+def split_group_line(line: str) -> list:
     return line.split(":")
 
-def parse_groups(file_path='/etc/group'):
+def parse_groups(file_path='/etc/group') -> list:
     with open(file_path, "r") as group_list:
         group_list = group_list.read().split("\n")
         group_list.pop()
         group_list = list(split_group_line(line) for line in group_list)
         return group_list
 
-def is_user_account(user_data):
+def is_user_account(user_data: list) -> bool:
     if int(user_data[2]) >= 1000:
         return True
 
-def get_user_accounts(passwd_file='/etc/passwd'):
+def get_user_accounts(passwd_file='/etc/passwd') -> list:
     with open(passwd_file, "r") as user_list:
         user_list = user_list.read().split("\n")
         user_list.pop()
@@ -20,7 +20,7 @@ def get_user_accounts(passwd_file='/etc/passwd'):
         user_list = list(filter(is_user_account, user_list))
         return user_list
 
-def get_sup_groups(users, groups):
+def get_sup_groups(users: list, groups: list) -> list:
         for user in users:
             supp_groups = []
             for group in groups:
@@ -29,7 +29,7 @@ def get_sup_groups(users, groups):
             user.append(supp_groups)
         return users
 
-def gen_user_report(users, output_file='user_report.txt'):
+def gen_user_report(users: list, output_file='user_report.txt'):
     with open(output_file, 'w') as output:
         for i in range(0, len(users)):
             if int(users[i][2]) >= 1000:
