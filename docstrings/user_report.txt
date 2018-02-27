@@ -1,0 +1,8 @@
+
+                Account Name: sglodek
+                    UID: 1002
+                    GID: 1002
+                    Home Dir: /home/sglodek
+                    Shell: /bin/bash
+                    Supplimentary Groups: ['wireshark']
+                    
