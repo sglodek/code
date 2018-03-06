@@ -46,4 +46,3 @@ def gen_user_report(users, groups, output_file='user_report.txt'):
 
 if __name__ == "__main__":
     main()
-
